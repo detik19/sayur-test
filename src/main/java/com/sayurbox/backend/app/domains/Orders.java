@@ -1,10 +1,32 @@
 package com.sayurbox.backend.app.domains;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.Set;
 
-public class Orders {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
+
+//@Entity
+//@Table(name="ORDERS")
+public class Orders implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4449685284665098460L;
+	@Id
+		@Column(name="id", length=36)
+		@Length(min=36, max=36)
+		@GeneratedValue(generator= "system-uuid")
+		@GenericGenerator(name="system-uuid", strategy="uuid2")
 	private String id;
+	
 	private Customer user;
 	private Set<OrderDetails> orderList;
 	private Instant orderDate;
