@@ -8,13 +8,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
-//@Entity
-//@Table(name="ORDERS")
+@Entity
+@Table(name="ORDERS")
 public class Orders implements Serializable{
 	/**
 	 * 
@@ -27,32 +30,42 @@ public class Orders implements Serializable{
 		@GenericGenerator(name="system-uuid", strategy="uuid2")
 	private String id;
 	
-	private Customer user;
-	private Set<OrderDetails> orderList;
+	@ManyToOne
+	@JoinColumn(name="customer_id")
+	private Customer customer;
+	
+	@OneToMany(mappedBy="orders")
+	private Set<OrderDetail> orderDetails;
+	
+	@Column(name="order_date")
 	private Instant orderDate;
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Customer getUser() {
-		return user;
+
+	public Customer getCustomer() {
+		return customer;
 	}
-	public void setUser(Customer user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
-	public Set<OrderDetails> getOrderList() {
-		return orderList;
-	}
-	public void setOrderList(Set<OrderDetails> orderList) {
-		this.orderList = orderList;
-	}
+
+	
 	public Instant getOrderDate() {
 		return orderDate;
 	}
 	public void setOrderDate(Instant orderDate) {
 		this.orderDate = orderDate;
+	}
+	public Set<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+	public void setOrderDetails(Set<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
 	} 
 	
 	

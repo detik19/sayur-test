@@ -34,8 +34,20 @@ public class Item implements Serializable {
 	private String name;
 	
 	@Digits(integer=5, fraction=2)
-	@Column(name="unitprice")
+	@Column(name="unit_price")
 	private BigDecimal unitPrice;
+	
+	@Column(name="inventory")
+	private int inventory;
+	
+	
+	
+	public int getInventory() {
+		return inventory;
+	}
+	public void setInventory(int inventory) {
+		this.inventory = inventory;
+	}
 	public String getId() {
 		return id;
 	}
@@ -54,10 +66,15 @@ public class Item implements Serializable {
 	public void setUnitPrice(BigDecimal unitPrice) {
 		this.unitPrice = unitPrice;
 	}
+	
+	
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", name=" + name + ", unitPrice=" + unitPrice + "]";
+		return "Item [id=" + id + ", name=" + name + ", unitPrice=" + unitPrice + ", inventory=" + inventory + "]";
 	}
+
+	
+	
 	
 	
 }

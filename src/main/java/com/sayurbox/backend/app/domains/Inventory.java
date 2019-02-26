@@ -1,6 +1,11 @@
 package com.sayurbox.backend.app.domains;
 
-public class Stock {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+//@Entity
+//@Table(name="STOCK")
+public class Inventory {
 	private String id;
 	private Item item;
 	private String quantity;

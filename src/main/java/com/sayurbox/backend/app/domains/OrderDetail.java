@@ -3,13 +3,48 @@ package com.sayurbox.backend.app.domains;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-public class OrderDetails {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.validator.constraints.Length;
+
+@Entity
+@Table(name="ORDER_DETAIL")
+public class OrderDetail {
+	@Id
+		@Column(name="id", length=36)
+		@Length(min=36, max=36)
+		@GeneratedValue(generator= "system-uuid")
+		@GenericGenerator(name="system-uuid", strategy="uuid2")
 	private String id;
+	
+	@ManyToOne
+	@JoinColumn(name="item_id")
 	private Item item;
+	
+	@ManyToOne
+	@JoinColumn(name="order_detail_id")
+	private Orders orders;
+	
+	@Column(name="price")
 	private BigDecimal price;
+	
+	@Column(name="qty")
 	private int quantity;
+	
+	@Column(name="total")
 	private BigDecimal total;
+	
+	@Column(name="selected_date")
 	private Instant selectedDate;
+	
 	public String getId() {
 		return id;
 	}
