@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
  * REST controller for managing Cart.
  */
 @RestController
-@RequestMapping("/v1/cart")
+@RequestMapping(path="/v1/cart", produces=MediaType.APPLICATION_JSON_VALUE)
 public class CartController {
     private final Logger log = LoggerFactory.getLogger(CartController.class);
     

@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ import com.sayurbox.backend.app.util.ResponseUtil;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping(path="/v1",  produces=MediaType.APPLICATION_JSON_VALUE)
 public class OrdersController {
 
 	@Autowired

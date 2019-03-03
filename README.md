@@ -12,14 +12,15 @@
 * spring.datasource.username= {your mysql username}
 * spring.datasource.password= {your mysql password}
 7. mvn install 
-8. mvn:run
+8. mvn clean package
+8. java -jar target/backend-app-0.0.1-SNAPSHOT.jar
 ## Preload database
 1. executed preload.sql in src/main/resources
-* mysql -u {usersql} -p {passwordsql} sayur  < preload.sql
+* mysql -u {usersql} -p sayur  < preload.sql
 2. preload sql contain : 
 * 2 customer : susan and manda
 * 3 items and inventories : Apel, Pepaya, Mangga
 ## API documentantion
 6. Documentation for API: http://localhost:8080/swagger-ui.html
 *POST http://localhost:8080/v1/cart/ to select goods in the cart
- 
+*POST  http://localhost:8080/v1/orders/ to make orders 

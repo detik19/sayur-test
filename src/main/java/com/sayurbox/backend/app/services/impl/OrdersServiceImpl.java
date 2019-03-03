@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -14,12 +15,14 @@ import org.springframework.stereotype.Service;
 
 import com.sayurbox.backend.app.domains.Customer;
 import com.sayurbox.backend.app.domains.Inventory;
+import com.sayurbox.backend.app.domains.Item;
 import com.sayurbox.backend.app.domains.OrderItem;
 import com.sayurbox.backend.app.domains.Orders;
 import com.sayurbox.backend.app.models.Constants;
 import com.sayurbox.backend.app.models.SelectRequest;
 import com.sayurbox.backend.app.repository.CustomerRepository;
 import com.sayurbox.backend.app.repository.InventoryRepository;
+import com.sayurbox.backend.app.repository.ItemRepository;
 import com.sayurbox.backend.app.repository.OrderItemRepository;
 import com.sayurbox.backend.app.repository.OrdersRepository;
 import com.sayurbox.backend.app.services.OrdersService;
@@ -37,6 +40,8 @@ public class OrdersServiceImpl implements OrdersService{
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Autowired
+	private ItemRepository ItemRepository;
 	
 	@Autowired 
 	private InventoryRepository inventoryRepository;
@@ -68,8 +73,13 @@ public class OrdersServiceImpl implements OrdersService{
 			oi.setOrders(o);
 			oi.setSelectedDate(new Date().toInstant());
 			OrderItem oiexist=orderItemRepository.findOneByOrdersAndItem(o, oi.getItem());
+			Optional<Item> iopt=ItemRepository.findById(oi.getItem().getId());
+			BigDecimal unitprice=iopt.get().getUnitPrice();
+			oi.setPrice(unitprice.multiply(new BigDecimal(oi.getQuantity())));
+
 			if(oiexist!=null) {
 				int qty=oi.getQuantity()+oiexist.getQuantity();
+				
 				BigDecimal price= oi.getPrice().add(oiexist.getPrice());
 				oiexist.setQuantity(qty);
 				oiexist.setPrice(price);
@@ -114,15 +124,20 @@ public class OrdersServiceImpl implements OrdersService{
 		Inventory inv=inventoryRepository.findOneByItem(oi.getItem());
 		if(inv.getQuantity()==0) {
 			oi.setQuantity(0);
+			oi.setPrice(new BigDecimal(0));
 		}
 		else if(inv.getQuantity()>=oi.getQuantity()) {
 			int sisa=inv.getQuantity()-oi.getQuantity();
 			inv.setQuantity(sisa);
 			
+			
 		}else if(inv.getQuantity()<oi.getQuantity()) {
 			oi.setQuantity(inv.getQuantity());
+			oi.setPrice(inv.getItem().getUnitPrice().multiply(new BigDecimal(oi.getQuantity())));
+
 			inv.setQuantity(0);
 		}
+		inventoryRepository.save(inv);
 		return oi;
 		
 	}
