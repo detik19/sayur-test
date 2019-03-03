@@ -16,9 +16,17 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="ORDERS")
 public class Orders implements Serializable{
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	/**
 	 * 
 	 */
@@ -35,10 +43,13 @@ public class Orders implements Serializable{
 	private Customer customer;
 	
 	@OneToMany(mappedBy="orders")
-	private Set<OrderDetail> orderDetails;
+	private Set<OrderItem> orderItems;
 	
 	@Column(name="order_date")
 	private Instant orderDate;
+	
+	@Column(name="order_status")
+	private int status;
 	
 	public String getId() {
 		return id;
@@ -61,12 +72,13 @@ public class Orders implements Serializable{
 	public void setOrderDate(Instant orderDate) {
 		this.orderDate = orderDate;
 	}
-	public Set<OrderDetail> getOrderDetails() {
-		return orderDetails;
+	public Set<OrderItem> getOrderItems() {
+		return orderItems;
 	}
-	public void setOrderDetails(Set<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
-	} 
+	public void setOrderItems(Set<OrderItem> orderItems) {
+		this.orderItems = orderItems;
+	}
+	
 	
 	
 }

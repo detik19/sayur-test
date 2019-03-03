@@ -1,0 +1,3 @@
+INSERT INTO `customer` (`id`, `name`) VALUES ('7455825e-b7b5-4e23-9e05-faf4e6f0b5c6','lala'),('40208e9f-f019-464e-bb24-136c8442b4b0','nana');
+INSERT INTO `inventory` (`id`, `quantity`, `item_id`) VALUES ('7d95a81a-8c07-4069-b248-8eaec6b22237',4,'9da9be44-59d0-4f5e-9696-3fa30bebeec7'),('d2d47894-35d5-4793-a25c-6fdce476a500',4,'041c6e51-a2e7-45ec-8cb2-6af3509081d8'),('c7fffc54-335c-405a-88c4-eee73d4dd677',4,'44533574-02a7-4aa5-9a67-776c0d5fcd40');
+INSERT INTO `item` (`id`, `name`, `unit_price`) VALUES ('44533574-02a7-4aa5-9a67-776c0d5fcd40','Apel',5000.00),('041c6e51-a2e7-45ec-8cb2-6af3509081d8','Pepaya',1000.00),('9da9be44-59d0-4f5e-9696-3fa30bebeec7','Mangga',1000.00);
