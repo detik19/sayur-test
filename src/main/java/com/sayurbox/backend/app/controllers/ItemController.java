@@ -29,8 +29,14 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
     
+    /**
+     * get Item
+     * 
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}") 
-    public ResponseEntity<Item> getBooks(@PathVariable String id) {
+    public ResponseEntity<Item> getItem(@PathVariable String id) {
         log.debug("REST request to get Item : {}", id);
         Item item=itemService.getItem(id);
 //        Book book = bookService.getBookByPermalik(permalink);
@@ -38,6 +44,13 @@ public class ItemController {
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(item));
     }
     
+    /**
+     * 
+     * save item 
+     * 
+     * @param item
+     * @return
+     */
     @PostMapping
     public ResponseEntity<Item> postitem(@Valid @RequestBody Item item) {
         log.debug("REST request to POST  Item : {}", item);

@@ -32,8 +32,15 @@ public class InventoryController {
     
     @Autowired
     private InventoryService inventoryService;
+    
+    /**
+     * save inventory
+     * @param inventory
+     * @return
+     * @throws URISyntaxException
+     */
     @PostMapping
-    public ResponseEntity<Inventory> saveBook(@RequestBody Inventory inventory) throws URISyntaxException {
+    public ResponseEntity<Inventory> saveInventory(@RequestBody Inventory inventory) throws URISyntaxException {
         log.debug("REST request to update Books : {}", inventory);
         Inventory result = inventoryService.saveInventory(inventory);
         return ResponseEntity.ok()
@@ -41,6 +48,11 @@ public class InventoryController {
             .body(result);
     }
     
+    /**
+     * view inventory
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}") 
 	public  ResponseEntity<Inventory> viewInventory(@PathVariable String id){
         log.debug("REST request to get inventory : {}", id);

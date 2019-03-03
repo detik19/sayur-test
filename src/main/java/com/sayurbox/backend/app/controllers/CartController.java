@@ -21,6 +21,12 @@ import com.sayurbox.backend.app.services.OrdersService;
 import com.sayurbox.backend.app.util.HeaderUtil;
 import com.sayurbox.backend.app.util.ResponseUtil;
 
+import io.swagger.annotations.ApiOperation;
+
+
+/**
+ * REST controller for managing Cart.
+ */
 @RestController
 @RequestMapping("/v1/cart")
 public class CartController {
@@ -29,6 +35,14 @@ public class CartController {
     @Autowired
     private OrdersService ordersService;
     
+    /**
+     * select item order to cart 
+     * @param selectRequest
+     * @return
+     */
+    @ApiOperation(httpMethod = "POST", 
+    		   value = "Resource to select a items will be order", 
+    		   nickname="addCart")
 	@PostMapping
 	public ResponseEntity<Orders> addCart(@Valid @RequestBody SelectRequest selectRequest) {
         log.debug("REST request to post order : {}", selectRequest);
@@ -38,6 +52,12 @@ public class CartController {
                 .body(o);
 	}
 	
+	/**
+	 * inquiry item order in the cart by name
+	 * 
+	 * @param name
+	 * @return
+	 */
     @GetMapping("/{name}") 
 	public  ResponseEntity<Orders> viewCart(@PathVariable String name){
         log.debug("REST request to get order : {}", name);

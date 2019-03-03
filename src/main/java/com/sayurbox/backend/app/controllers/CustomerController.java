@@ -28,6 +28,11 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
     
+    /**
+     * Create  new customer
+     * @param customer
+     * @return
+     */
 	@PostMapping
 	public ResponseEntity<Customer> saveCustomer(@Valid @RequestBody Customer customer) {
         log.debug("REST request to post order : {}", customer);
@@ -38,6 +43,11 @@ public class CustomerController {
 
 	}
 	
+	/**
+	 * get customer
+	 * @param name
+	 * @return
+	 */
 	@GetMapping("/{name}")
 	public ResponseEntity<Customer> Customer(@PathVariable String name) {
         log.debug("REST request to get order : {}", name);
